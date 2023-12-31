@@ -166,7 +166,7 @@
     <h1 id="brandName">Xpress Trip</h1>
     <nav>
       <ul>
-        <li><a href="#">Home</a></li>
+        <li><a href="../index.html">Home</a></li>
         <li><a href="#">Book</a></li>
         <li>
           <a href="#">Packages</a>
@@ -188,7 +188,7 @@
     <section>
       <img src="../img/backgroung.jpg" alt="Background Image" />
       <div class="overlay">
-        <form id="registerForm">
+        <form id="registerForm" onsubmit="return validateLogin()">
           <label for="email">Email ID:</label>
           <input type="email" id="email" name="email" required />
 
@@ -203,7 +203,18 @@
     </section>
 
     <script>
+      function validateLogin() {
+            const username = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
 
+            if (username === 'admin@gmail.com' && password === 'admin') {
+                localStorage.setItem('isLoggedIn', 'true');
+                window.location.href = './booking.html';
+            } else {
+                alert('Invalid email or password');
+            }
+            return false;
+        }
     </script>
   </body>
 </html>

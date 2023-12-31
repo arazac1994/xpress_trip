@@ -9,7 +9,6 @@
         margin: 0;
         padding: 0;
         font-family: Arial, sans-serif;
-        
       }
 
       header {
@@ -23,7 +22,6 @@
       #logo {
         width: 100px;
         height: 100px;
-       
       }
 
       #brandName {
@@ -52,7 +50,6 @@
       nav ul ul li a {
         color: rgb(18, 17, 17);
       }
-      
 
       nav ul li {
         position: relative;
@@ -68,7 +65,11 @@
         position: absolute;
         top: 100%;
         left: 0;
-        background-color: rgb(239, 236, 9); /* Change the background color as needed */
+        background-color: rgb(
+          239,
+          236,
+          9
+        ); /* Change the background color as needed */
         z-index: 1;
       }
 
@@ -152,7 +153,6 @@
         border: none;
         cursor: pointer;
       }
-  
     </style>
   </head>
   <header>
@@ -180,22 +180,19 @@
     </nav>
   </header>
   <div id="accountButtons">
-    <button class="header-account-button" onclick="redirectToLogin()">Login</button>
-    <button class="header-account-button" onclick="redirectToRegister()">Register</button>
+    
   </div>
   <body>
-
     <section>
       <img src="./img/backgroung.jpg" alt="Background Image" />
       <div class="overlay">
         <h2 style="color: #0a0a0ad4">Welcome to Xpress Trip</h2>
-        <h1 style="color: #0a0a0ad4">Visit <span id="country">Loading..</span></h1>
-        <button onclick="redirectToBooking()" >Book Now</button>
+        <h1 style="color: #0a0a0ad4">
+          Visit <span id="country">Loading..</span>
+        </h1>
+        <button onclick="redirectToBooking()">Book Now</button>
       </div>
     </section>
-
-
-
 
     <script>
       document.addEventListener("DOMContentLoaded", function () {
@@ -205,23 +202,44 @@
 
         function changeContry() {
           countryElement.textContent = countries[currentIndex];
-          currentIndex = (currentIndex + 1) % countries.length
+          currentIndex = (currentIndex + 1) % countries.length;
         }
 
-        setInterval(changeContry, 200)
-      })
+        setInterval(changeContry, 200);
+      });
 
       function redirectToBooking() {
-            window.location.href = './Pages/booking.html';
+        if (localStorage.getItem("isLoggedIn") === "true") {
+          window.location.href = "./Pages/booking.html";
+        } else {
+          window.location.href = "./Pages/login.html";
         }
+      }
 
-        function redirectToLogin() {
-            window.location.href = './Pages/login.html';
-        }
+      function redirectToLogin() {
+        window.location.href = "./Pages/login.html";
+      }
 
-        function redirectToRegister() {
-            window.location.href = './Pages/register.html';
-        }
+      function redirectToRegister() {
+        window.location.href = "./Pages/register.html";
+      }
+
+      function redirectToIndex() {
+        localStorage.setItem("isLoggedIn", "false");
+        window.location.href = "./index.html";
+      }
+
+      const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+
+      const headerButtons = document.getElementById("accountButtons");
+
+      if (isLoggedIn) {
+        headerButtons.innerHTML = '<button class="header-account-button" onclick="redirectToIndex()">Log Out</button>';
+      }else {
+        headerButtons.innerHTML =
+          '<button class="header-account-button" onclick="redirectToLogin()">Login</button>' +
+           '<button class="header-account-button" onclick="redirectToRegister()">Register</button>';
+      }
     </script>
   </body>
 </html>
